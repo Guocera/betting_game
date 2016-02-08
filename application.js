@@ -65,6 +65,8 @@ function getRandomInt(min, max) {
 
 $(document).ready(function() {
   var player = new Player();
+  $('#money').text(player.money)
+
   $('#play').click(player, function(e) {
     var player = e.data;
     console.log(player);
@@ -89,6 +91,8 @@ $(document).ready(function() {
           " and you guessed " + player.guess + ".  Money: " + player.money);
         break;
     }
+
+      $('#money').text(player.money)
   });
 });
 
