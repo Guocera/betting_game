@@ -21,6 +21,10 @@ function Player() {
     } while (invalidGuess(this.guess));
   };
 
+  this.betOutcome = function betOutcome(amount) {
+    this.money += +amount
+  };
+
   function invalidBet(bet) {
     if (!isNaN(bet) && bet >= 5 && bet <= 10) {
       return false;
@@ -41,7 +45,6 @@ function Player() {
 
 // Game start
 
-
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -50,11 +53,9 @@ var player = new Player()
 
 player.getBet()
 player.getGuess()
-
-
 var correct = getRandomInt(1, 10)
 
 // switch guess {
 //   case (correct):
-
+//     player.
 // }
