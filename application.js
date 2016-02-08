@@ -17,6 +17,20 @@ function invalidBet(bet) {
   }
 }
 
+function invalidGuess(guess) {
+  if (!isNaN(guess) && guess >= 1 && guess <= 10) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+var bet
 do {
-  var bet = prompt("Place a bet between $5 and $10");
+  bet = prompt("Place a bet between $5 and $10");
 } while (invalidBet(bet));
+
+var guess
+do {
+  guess = prompt("Guess a number between 1 and 10");
+} while (invalidGuess(guess));
