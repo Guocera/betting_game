@@ -69,30 +69,30 @@ $(document).ready(function() {
 
   $('#play').click(player, function(e) {
     var player = e.data;
-    console.log(player);
     player.guess = $('#guess').val();
     player.bet = $('#bet').val();
     var correct = getRandomInt(1, 10); 
-    console.log(player);
 
     switch (player.correctAnswer(correct)) {
       case true:
         player.betOutcome(player.bet);
-        alert("You won!  The correct guess was " + correct +
-          " and you guessed " + player.guess + ".  Money:" + player.money);
+        var msg = "You won!  The correct guess was " + correct +
+          " and you guessed " + player.guess + ".";
         break;
       case 'close':
-        alert("Close!  The correct guess was " + correct + 
-          " and you guessed " + player.guess + ".  Money:" + player.money);
+        var msg = "Close!  The correct guess was " + correct + 
+          " and you guessed " + player.guess + ".";
         break;
       case false:
         player.betOutcome(-player.bet);
-        alert("You lost!  The correct guess was " + correct + 
-          " and you guessed " + player.guess + ".  Money: " + player.money);
+        var msg = "You lost!  The correct guess was " + correct + 
+          " and you guessed " + player.guess + ".";
         break;
     }
 
       $('#money').text(player.money)
+
+      $('#log').prepend("<p>" + msg + "</p>")
   });
 });
 
