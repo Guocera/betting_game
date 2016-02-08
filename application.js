@@ -28,7 +28,7 @@ function Player() {
   };
 
   this.correctAnswer = function correctAnswer(correct) {
-    switch (+player.guess) {
+    switch (+this.guess) {
       case +correct:
         return true;
       case (+correct + 1):
@@ -61,15 +61,35 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-
 // Game start
 
 $(document).ready(function() {
-  var player = new Player();
+  $('#play').click( function() {
+    var player = new Player();
+    // var player = e.data;
+    console.log(player);
+    player.guess = $('#guess').val();
+    player.bet = $('#bet').val();
+    var correct = getRandomInt(1, 10); 
+    console.log(player);
 
-  
-
+    switch (player.correctAnswer(correct)) {
+      case true:
+        player.betOutcome(player.bet);
+        alert("You won!  The correct guess was " + correct +
+          " and you guessed " + player.guess + ".  Money:" + player.money);
+        break;
+      case 'close':
+        alert("Close!  The correct guess was " + correct + 
+          " and you guessed " + player.guess + ".  Money:" + player.money);
+        break;
+      case false:
+        player.betOutcome(-player.bet);
+        alert("You lost!  The correct guess was " + correct + 
+          " and you guessed " + player.guess + ".  Money: " + player.money);
+        break;
+    }
+  });
 });
 
 
@@ -79,19 +99,4 @@ $(document).ready(function() {
 // player.getGuess();
 // var correct = getRandomInt(1, 10);
 
-// switch (player.correctAnswer(correct)) {
-//   case true:
-//     player.betOutcome(player.bet);
-//     alert("You won!  The correct guess was " + correct + " and you guessed " 
-//       + player.guess + ".  Money:" + player.money);
-//     break;
-//   case 'close':
-//     alert("Close!  The correct guess was " + correct + " and you guessed " 
-//       + player.guess + ".  Money:" + player.money);
-//     break;
-//   case false:
-//     player.betOutcome(-player.bet);
-//     alert("You lost!  The correct guess was " + correct + " and you guessed " 
-//       + player.guess + ".  Money: " + player.money);
-//     break;
-// }
+
