@@ -64,9 +64,9 @@ function getRandomInt(min, max) {
 // Game start
 
 $(document).ready(function() {
-  $('#play').click( function() {
-    var player = new Player();
-    // var player = e.data;
+  var player = new Player();
+  $('#play').click(player, function(e) {
+    var player = e.data;
     console.log(player);
     player.guess = $('#guess').val();
     player.bet = $('#bet').val();
