@@ -73,10 +73,16 @@ var correct = getRandomInt(1, 10);
 switch (player.correctAnswer(correct)) {
   case true:
     player.betOutcome(player.bet);
+    alert("You won!  The correct guess was " + correct + " and you guessed " 
+      + player.guess + ".  Money:" + player.money);
     break;
   case 'close':
+    alert("Close!  The correct guess was " + correct + " and you guessed " 
+      + player.guess + ".  Money:" + player.money);
     break;
   case false:
     player.betOutcome(-player.bet);
+    alert("You lost!  The correct guess was " + correct + " and you guessed " 
+      + player.guess + ".  Money: " + player.money);
     break;
 }
