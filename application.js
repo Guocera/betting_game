@@ -1,3 +1,5 @@
+"use strict";
+
 function Player() {
   this.money = 100;
 
@@ -22,7 +24,20 @@ function Player() {
   };
 
   this.betOutcome = function betOutcome(amount) {
-    this.money += +amount
+    this.money += +amount;
+  };
+
+  this.correctAnswer = function correctAnswer(correct) {
+    switch (+player.guess) {
+      case +correct:
+        return true;
+      case (+correct + 1):
+        return 'close';
+      case (+correct - 1):
+        return 'close';
+      default:
+        return false;
+    }
   };
 
   function invalidBet(bet) {
@@ -49,13 +64,19 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var player = new Player()
+var player = new Player();
 
-player.getBet()
-player.getGuess()
-var correct = getRandomInt(1, 10)
+player.getBet();
+player.getGuess();
+var correct = getRandomInt(1, 10);
 
-// switch guess {
-//   case (correct):
-//     player.
-// }
+switch (player.correctAnswer(correct)) {
+  case true:
+    player.betOutcome(player.bet);
+    break;
+  case 'close':
+    break;
+  case false:
+    player.betOutcome(-player.bet);
+    break;
+}
