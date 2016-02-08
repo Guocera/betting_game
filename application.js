@@ -8,3 +8,15 @@ function Player() {
     }
   };
 }
+
+function invalidBet(bet) {
+  if (!isNaN(bet) && bet >= 5 && bet <= 10) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+do {
+  var bet = prompt("Place a bet between $5 and $10");
+} while (invalidBet(bet));
