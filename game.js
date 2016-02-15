@@ -6,7 +6,7 @@ function Player() {
   this.money = 100;
 
   this.broke = function() {
-    if (this.money === 0) {
+    if (this.money <= 0) {
       return true;
     } else {
       return false;
@@ -69,38 +69,33 @@ function getRandomInt(min, max) {
 
 // Game start
 
-
 var player = new Player();
 
+while (!player.broke()) {
+  console.log("You have $" + player.money)
+  var bet = player.getBet();
+  var guess = player.getGuess();
+  var correct = getRandomInt(1, 10); 
+  var msg = "";
 
-var bet = player.getBet();
-var guess = player.getGuess();
-var correct = getRandomInt(1, 10); 
-var msg = "";
+  switch (player.correctAnswer(correct)) {
+    case true:
+      player.betOutcome(bet);
+      msg = "You won!  The correct guess was " + correct +
+        " and you guessed " + guess + ".";
+      break;
+    case 'close':
+      msg = "Close!  The correct guess was " + correct + 
+        " and you guessed " + guess + ".";
+      break;
+    case false:
+      player.betOutcome(-bet);
+      msg = "You lost!  The correct guess was " + correct + 
+        " and you guessed " + guess + ".";
+      break;
+  }
 
-switch (player.correctAnswer(correct)) {
-  case true:
-    player.betOutcome(bet);
-    msg = "You won!  The correct guess was " + correct +
-      " and you guessed " + guess + ".";
-    break;
-  case 'close':
-    msg = "Close!  The correct guess was " + correct + 
-      " and you guessed " + guess + ".";
-    break;
-  case false:
-    player.betOutcome(-bet);
-    msg = "You lost!  The correct guess was " + correct + 
-      " and you guessed " + guess + ".";
-    break;
+  console.log(msg);
 }
 
-console.log(msg);
-
-
-
-// player.getBet();
-// player.getGuess();
-// var correct = getRandomInt(1, 10);
-
-
+console.log("Game Over")
