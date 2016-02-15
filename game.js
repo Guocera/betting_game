@@ -1,6 +1,7 @@
 "use strict";
 
 var readlineSync = require('readline-sync');
+var colors = require('colors');
 
 function Player() {
   this.money = 100;
@@ -83,6 +84,7 @@ while (!player.broke()) {
       player.betOutcome(bet);
       msg = "You won!  The correct guess was " + correct +
         " and you guessed " + guess + ".";
+      msg = msg.green
       break;
     case 'close':
       msg = "Close!  The correct guess was " + correct + 
@@ -92,6 +94,7 @@ while (!player.broke()) {
       player.betOutcome(-bet);
       msg = "You lost!  The correct guess was " + correct + 
         " and you guessed " + guess + ".";
+      msg = msg.red
       break;
   }
 
