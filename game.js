@@ -1,9 +1,11 @@
 "use strict";
 
+var readlineSync = require('readline-sync');
+
 function Player() {
   this.money = 100;
 
-  this.broke = function broke() {
+  this.broke = function() {
     if (this.money === 0) {
       return true;
     } else {
@@ -11,23 +13,27 @@ function Player() {
     }
   };
 
-  this.getBet = function getBet() {
+  this.getBet = function() {
     do {
-      this.bet = prompt("Place a bet between $5 and $10");
+      this.bet = readlineSync.question("Place a bet between $5 and $10: ");
     } while (invalidBet(this.bet));
+
+    return this.bet;
   };
 
-  this.getGuess = function getGuess() {
+  this.getGuess = function() {
     do {
-      this.guess = prompt("Guess a number between 1 and 10");
+      this.guess = readlineSync.question("Guess a number between 1 and 10: ");
     } while (invalidGuess(this.guess));
+
+    return this.guess
   };
 
-  this.betOutcome = function betOutcome(amount) {
+  this.betOutcome = function(amount) {
     this.money += +amount;
   };
 
-  this.correctAnswer = function correctAnswer(correct) {
+  this.correctAnswer = function(correct) {
     switch (+this.guess) {
       case +correct:
         return true;
@@ -63,39 +69,33 @@ function getRandomInt(min, max) {
 
 // Game start
 
-$(document).ready(function() {
-  var player = new Player();
-  $('#money').text(player.money)
 
-  $('#play').click(player, function(e) {
-    var player = e.data;
-    player.guess = $('#guess').val();
-    player.bet = $('#bet').val();
-    var correct = getRandomInt(1, 10); 
+var player = new Player();
 
-    switch (player.correctAnswer(correct)) {
-      case true:
-        player.betOutcome(player.bet);
-        var msg = "You won!  The correct guess was " + correct +
-          " and you guessed " + player.guess + ".";
-        break;
-      case 'close':
-        var msg = "Close!  The correct guess was " + correct + 
-          " and you guessed " + player.guess + ".";
-        break;
-      case false:
-        player.betOutcome(-player.bet);
-        var msg = "You lost!  The correct guess was " + correct + 
-          " and you guessed " + player.guess + ".";
-        break;
-    }
 
-      $('#money').text(player.money)
+var bet = player.getBet();
+var guess = player.getGuess();
+var correct = getRandomInt(1, 10); 
+var msg = "";
 
-      $('#log').prepend("<p>" + msg + "</p>")
-  });
-});
+switch (player.correctAnswer(correct)) {
+  case true:
+    player.betOutcome(bet);
+    msg = "You won!  The correct guess was " + correct +
+      " and you guessed " + guess + ".";
+    break;
+  case 'close':
+    msg = "Close!  The correct guess was " + correct + 
+      " and you guessed " + guess + ".";
+    break;
+  case false:
+    player.betOutcome(-bet);
+    msg = "You lost!  The correct guess was " + correct + 
+      " and you guessed " + guess + ".";
+    break;
+}
 
+console.log(msg);
 
 
 
